@@ -1,0 +1,137 @@
+body{
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+header{
+    width: 100%;
+    height: 20%;
+    background-color: yellow;
+}
+
+.logo{
+    width: 24%;
+    height: 100%;
+    background-color: blue;
+    display: inline-block;
+    position: relative;
+}
+
+.title{
+    width: 60%;
+    height: 67%;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    bottom: 30%;
+    font-size: 11vh;
+}
+
+.settings{
+    width: 10%;
+    height: 15%;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    bottom: 60%;
+}
+
+.about{
+    width: 10%;
+    height: 5%;
+    background-color: white;
+    position: absolute;
+    display: inline-block;
+    top: 10%;
+    right: 5%;
+
+}
+
+section{
+    width: 100%;
+    height: 80%;
+    background-color: #a94442;
+}
+
+.statsContainer{
+    display: inline-block;
+    width: 12%;
+    height: 100%;
+    background-color: #5bc0de;
+    font-size: 0;
+}
+
+.statsContainer > * {
+    font-size: 1rem;
+}
+
+.games-played{
+    width: 70%;
+    height: 20%;
+    margin: 5%;
+    background-color: white;
+}
+
+.attempts{
+    width: 70%;
+    height: 20%;
+    background-color: yellow;
+    margin: 5%;
+}
+
+.accuracy{
+    width: 70%;
+    height: 20%;
+    background-color: green;
+    margin: 5%;
+}
+
+.reset{
+    width: 70%;
+    height: 20%;
+    background-color: red;
+    margin: 5%;
+}
+
+.game-area{
+    display: inline-block;
+    width: 88%;
+    height: 80%;
+    background-color: chartreuse;
+    font-size: 0;
+    position: absolute;
+
+}
+
+.game-area > * {
+    font-size: 1rem;
+}
+
+.cardRow{
+    width: 100%;
+    height: 28%;
+    background-color: blue;
+}
+
+.card{
+    width: 14%;
+    height: 71%;
+    background-color: white;
+    display: inline-block;
+    margin: 1%;
+}
+
+/*.front{*/
+    /*width: 50%;*/
+    /*height: 50%;*/
+    /*background-color: red;*/
+    /*display: inline-block;*/
+/*}*/
+
+/*.back{*/
+    /*width: 50%;*/
+    /*height: 50%;*/
+    /*background-color: yellow;*/
+    /*display: inline-block;*/
+/*}*/
