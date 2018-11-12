@@ -31,7 +31,7 @@ function card_creation() {
            var card_image = doubled_images.pop();
            var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + card_image+ ")");
            var playingCardBack = $("<div>").addClass("back").attr('cardIndex', cardIndex);
-           var divPlayingCard = $("<div>").addClass("card").text(cardIndex);
+           var divPlayingCard = $("<div>").addClass("card");
            $(divPlayingCard).append(playingCardFront, playingCardBack);
            $(cardRow).append(divPlayingCard);
        }
@@ -46,7 +46,7 @@ function card_selection() {
 }
 
 function card_clicked(){
-    // debugger;
+    debugger;
     console.log("clicked");
     $(this).addClass("hidden");
     if (first_card_clicked === null){
@@ -56,7 +56,7 @@ function card_clicked(){
     } else {
         second_card_clicked = $(this);
         console.log("second card ", second_card_clicked.attr('cardIndex'));
-        if (first_card_clicked.attr('cardIndex') === second_card_clicked.attr('cardIndex')) {
+        if (first_card_clicked.find(".front") === second_card_clicked.find(".front")) {
             console.log("both cards match");
             match_counter++;
             console.log("match counter ", match_counter);

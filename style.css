@@ -146,8 +146,8 @@ section{
     height: 71%;
     display: inline-block;
     vertical-align: top;
-    background-color: white;
-    color: black;
+    /*background-color: white;*/
+    /*color: black;*/
 }
 
 .card, .front, .back{
@@ -163,7 +163,7 @@ section{
     height: 100%;
     bottom: 2%;
     right: 1%;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
