@@ -4,6 +4,11 @@ var first_card_clicked = null;
 var second_card_clicked = null;
 var total_possible_matches = 2;
 var match_counter = 0;
+var matches = 0;
+var attempts = 0;
+var accuracy = 0;
+var games_played = 0;
+
 
 var images = [
     "./Rick_and_Morty/birdperson_rick.jpg",
@@ -21,6 +26,13 @@ var images = [
 function start_memory_game(){
     card_creation();
     card_selection();
+    $(".reset").click(function(){
+       games_played++;
+       reset_stats();
+       display_stats();
+       $(".back").removeClass("hidden");
+       $(".title").text("Morty Smith is a moron!");
+    });
 }
 
 function card_creation() {
@@ -30,7 +42,7 @@ function card_creation() {
        for (var cardIndex = 1; cardIndex <= 6; cardIndex++) {
            var card_image = doubled_images.pop();
            var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + card_image+ ")");
-           var playingCardBack = $("<div>").addClass("back").attr('cardIndex', cardIndex);
+           var playingCardBack = $("<div>").addClass("back");
            var divPlayingCard = $("<div>").addClass("card");
            $(divPlayingCard).append(playingCardFront, playingCardBack);
            $(cardRow).append(divPlayingCard);
@@ -44,57 +56,61 @@ function card_selection() {
 }
 
 function card_clicked(){
-    debugger;
-    console.log("clicked");
     $(this).addClass("hidden");
     if (first_card_clicked === null){
         first_card_clicked = $(this);
-        console.log('First Card:', first_card_clicked);
-        console.log("first card clicked" , first_card_clicked.attr('cardIndex'));
     } else {
         second_card_clicked = $(this);
-        console.log("second card ", second_card_clicked.attr('cardIndex'));
+        attempts++;
         first_card_clicked = first_card_clicked.parent().find(".front").css("background-image");
         second_card_clicked = second_card_clicked.parent().find(".front").css("background-image");
         if (first_card_clicked === second_card_clicked) {
-            console.log("both cards match");
             match_counter++;
-            console.log("match counter ", match_counter);
+            attempts++;
+            matches++;
+            display_stats();
             setTimeout(function () {
                 first_card_clicked.removeClass("hidden");
                 second_card_clicked.removeClass("hidden");
                 first_card_clicked = null;
                 second_card_clicked = null;
             }, 2000);
-            // first_card_clicked.removeClass("hidden");
-            // second_card_clicked.removeClass("hidden");
-            // first_card_clicked = null;
-            // console.log("first_card_clicked = ", first_card_clicked);
-            // second_card_clicked = null;
-            // console.log("second_card_clicked = ", second_card_clicked);
             $(".title").text("Great job Morty!");
-            console.log("winner");
             if (match_counter === total_possible_matches) {
                 $(this).find('.back').addClass('hidden');
                 $(".title").text("Great job Morty!");
-
             } else {
-                console.log("loser");
-
-
                 setTimeout(function () {
                 first_card_clicked.removeClass("hidden");
                 second_card_clicked.removeClass("hidden");
                 first_card_clicked = null;
                 second_card_clicked = null;
                 }, 2000);
-                return;
             }
+        } else {
+            first_card_clicked = null;
+            second_card_clicked = null;
+            first_card_clicked.addClass("back");
+            second_card_clicked.addClass("back");
+            attempts++;
+            display_stats();
         }
     }
 }
 
+function display_stats(){
+    $(".games-played .value").text(games_played);
+    $(".attempts .value").text(attempts);
+    accuracy = (matches / attempts) * 100;
+    $(".accuracy .value").text(accuracy + " % ");
+}
 
+function reset_stats(){
+    accuracy = 0;
+    matches = 0;
+    attempts = 0;
+    display_stats();
+}
 
 
 
