@@ -29,7 +29,7 @@ function card_creation() {
        for (var cardIndex = 1; cardIndex <= 6; cardIndex++) {
            var playingCardFront = $("<div>").addClass("front");
            var playingCardBack = $("<div>").addClass("back").attr('cardIndex', cardIndex);
-           var divPlayingCard = $("<div>").addClass("card");
+           var divPlayingCard = $("<div>").addClass("card").text(cardIndex);
            $(divPlayingCard).append(playingCardFront, playingCardBack);
            $(cardRow).append(divPlayingCard);
        }
