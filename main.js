@@ -28,6 +28,7 @@ function card_creation() {
    for  (var cardRowIndex = 1; cardRowIndex <=3; cardRowIndex++) {
        var cardRow = $("<div>").addClass("cardRow");
        for (var cardIndex = 1; cardIndex <= 6; cardIndex++) {
+           doubled_images.pop();
            var playingCardFront = $("<div>").addClass("front");
            var playingCardBack = $("<div>").addClass("back").attr('cardIndex', cardIndex);
            var divPlayingCard = $("<div>").addClass("card").text(cardIndex);
