@@ -24,6 +24,7 @@ function start_memory_game(){
 }
 
 function card_creation() {
+   var doubled_images = images.concat( images );
    for  (var cardRowIndex = 1; cardRowIndex <=3; cardRowIndex++) {
        var cardRow = $("<div>").addClass("cardRow");
        for (var cardIndex = 1; cardIndex <= 6; cardIndex++) {
