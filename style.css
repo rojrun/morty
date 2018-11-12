@@ -4,61 +4,80 @@ body{
     height: 100vh;
 }
 
+@font-face {
+    font-family: rickFont;
+    src: url(./Rick_and_Morty/Rick_Morty_fonts/get_schwifty.ttf);
+}
+
+*{
+    font-family: rickFont;
+    color: deepskyblue;
+}
+
 header{
     width: 100%;
     height: 20%;
-    background-color: yellow;
+    background-color: black;
 }
 
 .logo{
     width: 24%;
     height: 100%;
-    background-color: blue;
     display: inline-block;
     position: relative;
+    background-image: url(./Rick_and_Morty/title.jpg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .title{
-    width: 60%;
-    height: 67%;
+    width: 55%;
+    height: 78%;
     background-color: white;
     display: inline-block;
     position: relative;
-    bottom: 30%;
+    bottom: 33%;
     font-size: 11vh;
+    text-align: center;
 }
 
 .settings{
-    width: 10%;
-    height: 15%;
+    width: 12%;
+    height: 36%;
     background-color: white;
     display: inline-block;
     position: relative;
-    bottom: 60%;
+    bottom: 70%;
+    left: 8%;
+    font-size: 4vh;
+    text-align: center;
 }
 
 .about{
-    width: 10%;
-    height: 5%;
+    width: 16%;
+    height: 36%;
     background-color: white;
-    position: absolute;
+    position: relative;
     display: inline-block;
-    top: 10%;
-    right: 5%;
+    bottom: 75%;
+    left: 83%;
+    font-size: 4vh;
+    text-align: center;
 
 }
 
 section{
     width: 100%;
     height: 80%;
-    background-color: #a94442;
+    background-color: black;
 }
 
 .statsContainer{
     display: inline-block;
     width: 12%;
     height: 100%;
-    background-color: #5bc0de;
+    background-color: black;
     font-size: 0;
 }
 
@@ -67,38 +86,46 @@ section{
 }
 
 .games-played{
-    width: 70%;
-    height: 20%;
-    margin: 5%;
+    width: 92%;
+    height: 22%;
+    margin: 4%;
     background-color: white;
+    font-size: 4vh;
+    text-align: center;
 }
 
 .attempts{
-    width: 70%;
-    height: 20%;
-    background-color: yellow;
-    margin: 5%;
+    width: 92%;
+    height: 22%;
+    margin: 4%;
+    background-color: white;
+    font-size: 4vh;
+    text-align: center;
 }
 
 .accuracy{
-    width: 70%;
-    height: 20%;
-    background-color: green;
-    margin: 5%;
+    width: 92%;
+    height: 22%;
+    margin: 4%;
+    background-color: white;
+    font-size: 4vh;
+    text-align: center;
 }
 
 .reset{
-    width: 70%;
-    height: 20%;
-    background-color: red;
-    margin: 5%;
+    width: 92%;
+    height: 22%;
+    margin: 4%;
+    background-color: white;
+    font-size: 4vh;
+    text-align: center;
 }
 
 .game-area{
     display: inline-block;
     width: 88%;
     height: 80%;
-    background-color: chartreuse;
+    background-color: black;
     font-size: 0;
     position: absolute;
 
@@ -111,27 +138,43 @@ section{
 .cardRow{
     width: 100%;
     height: 28%;
-    background-color: blue;
+    background-color: black;
 }
 
 .card{
     width: 14%;
     height: 71%;
-    background-color: white;
     display: inline-block;
+    vertical-align: top;
+
+}
+
+.card, .front, .back{
+
+    display: inline-block;
+    position: relative;
     margin: 1%;
 }
 
-/*.front{*/
-    /*width: 50%;*/
-    /*height: 50%;*/
-    /*background-color: red;*/
-    /*display: inline-block;*/
-/*}*/
+.front{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    bottom: 2%;
+    right: 1%;
+}
 
-/*.back{*/
-    /*width: 50%;*/
-    /*height: 50%;*/
-    /*background-color: yellow;*/
-    /*display: inline-block;*/
-/*}*/
+.back{
+    width: 100%;
+    height: 100%;
+    bottom: 110%;
+    right: 1%;
+    background-image: url(./Rick_and_Morty/portal.jpg);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hidden{
+    display: none;
+}
