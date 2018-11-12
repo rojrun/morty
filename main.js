@@ -39,8 +39,6 @@ function card_creation() {
    }
 }
 
-
-
 function card_selection() {
     $(".back").click(card_clicked);
 }
@@ -56,40 +54,46 @@ function card_clicked(){
     } else {
         second_card_clicked = $(this);
         console.log("second card ", second_card_clicked.attr('cardIndex'));
-        if (first_card_clicked.find(".front") === second_card_clicked.find(".front")) {
+        first_card_clicked = first_card_clicked.parent().find(".front").css("background-image");
+        second_card_clicked = second_card_clicked.parent().find(".front").css("background-image");
+        if (first_card_clicked === second_card_clicked) {
             console.log("both cards match");
             match_counter++;
             console.log("match counter ", match_counter);
             setTimeout(function () {
-                first_card_clicked.remove(".front");
-                second_card_clicked.remove(".front");
+                first_card_clicked.removeClass("hidden");
+                second_card_clicked.removeClass("hidden");
                 first_card_clicked = null;
                 second_card_clicked = null;
             }, 2000);
             // first_card_clicked.removeClass("hidden");
             // second_card_clicked.removeClass("hidden");
             // first_card_clicked = null;
-            console.log("first_card_clicked = ", first_card_clicked);
+            // console.log("first_card_clicked = ", first_card_clicked);
             // second_card_clicked = null;
-            console.log("second_card_clicked = ", second_card_clicked);
+            // console.log("second_card_clicked = ", second_card_clicked);
             $(".title").text("Great job Morty!");
             console.log("winner");
             if (match_counter === total_possible_matches) {
+                $(this).find('.back').addClass('hidden');
                 $(".title").text("Great job Morty!");
 
             } else {
                 console.log("loser");
-                return card_selection();
-                // setTimeout(function () {
-                // first_card_clicked.removeClass("hidden");
-                // second_card_clicked.removeClass("hidden");
-                // first_card_clicked = null;
-                // second_card_clicked = null;
-                // }, 2000);
+
+
+                setTimeout(function () {
+                first_card_clicked.removeClass("hidden");
+                second_card_clicked.removeClass("hidden");
+                first_card_clicked = null;
+                second_card_clicked = null;
+                }, 2000);
+                return;
             }
         }
     }
 }
+
 
 
 
