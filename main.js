@@ -9,7 +9,6 @@ var attempts = 0;
 var accuracy = 0;
 var games_played = 0;
 
-
 var images = [
     "./Rick_and_Morty/birdperson_rick.jpg",
     "./Rick_and_Morty/citadel.jpg",
@@ -17,8 +16,8 @@ var images = [
     "./Rick_and_Morty/Evil_Morty.jpg",
     "./Rick_and_Morty/first_episode.jpg",
     "./Rick_and_Morty/Pickle_Rick.jpg",
-    "./Rick_and_Morty/Rick_in_prison.jpg",
-    "./Rick_and_Morty/season-3.jpg",
+    "./Rick_and_Morty/wedding_squanchers.jpg",
+    "./Rick_and_Morty/rickshank_redemption.jpg",
     "./Rick_and_Morty/Vindicators.jpg",
 ];
 
@@ -46,115 +45,106 @@ function shuffle_array(imagesArray) {
 function card_creation(shuffledDeck) {
     for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
         var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
-        var playingCardBack = $("<div>").addClass("back").click(card_clicked);
+        var playingCardBack = $("<div>").addClass("back").click(clickCard);
         var playingCardContainer = $("<div>").addClass("card");
         $(playingCardContainer).append(playingCardFront, playingCardBack);
         $(".game-area").append(playingCardContainer);
     }
 }
 
-function card_clicked(){
+function clickCard(){
 
-    if (first_card_clicked === null){
+    // if (first_card_clicked === null){
+    //     first_card_clicked = $(this);
+    //     // flipCard(this);
+    //     first_card_clicked.siblings('.card-back').off();
+    // } else{
+    //     second_card_clicked = $(this);
+    //     // flipCard(this);
+    //     var firstCard = first_card_clicked.siblings('.card-back').css('background-image');
+    //     var secondCard = second_card_clicked.siblings('.card-back').css('background-image');
+    //     if (firstCard === secondCard){
+    //         //Found a match
+    //         var matchNumber = $('.matches .value');
+    //         match_counter++;
+    //         matchNumber.text(match_counter + ' ');
+    //         attempts++;
+    //         var attemptsValue=$('.attempts .value');
+    //         attemptsValue.text(attempts + ' ');
+    //         accuracy = match_counter/attempts;
+    //         var accuracyValue= $('.accuracy .value');
+    //         accuracyValue.text(Math.floor(accuracy * 100)+'%');
+    //         var cards = $('.card-front, .card-back');
+    //         cards.off('click');
+    //         setTimeout(function(){
+    //             pairMatchAnimation(first_card_clicked, second_card_clicked);
+    //             cards.on('click', clickCard);
+    //             first_card_clicked = null;
+    //             second_card_clicked = null;
+    //         },1200);
+    //         if (match_counter === matches){
+    //             console.log("All matches found");
+    //             // winningDisplay();
+    //         }
+    //     } else {
+    //         var cards = $('.card-front, .card-back');
+    //         cards.off('click');
+    //         // flag = true;
+    //         second_card_clicked.siblings('.card-back').addClass('shake')
+    //         first_card_clicked.siblings('.card-back').addClass('shake')
+    //         setTimeout(function(){
+    //             // nonPairMatchAnimation();
+    //             cards.on('click', clickCard);
+    //             second_card_clicked.siblings('.card-back').removeClass('shake')
+    //             first_card_clicked.siblings('.card-back').removeClass('shake')
+    //             first_card_clicked = null;
+    //             second_card_clicked = null;
+    //         },700);
+    //         attempts++;
+    //         var attemptsValue=$('.attempts .value');
+    //         attemptsValue.text(attempts + ' ');
+
+    //         if(match_counter >= 0 && match_counter < 9){
+    //             accuracy = match_counter/attempts;
+    //             var accuracyValue= $('.accuracy .value');
+    //             accuracyValue.text(Math.floor(accuracy * 100)+'%');
+    //         } else{
+    //             // winningDisplay();
+    //             console.log("winner");
+    //         }
+    //     }
+    // }
+
+
+    if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        flipCard(this);
-        first_card_clicked.siblings('.card-back').off();
-    } else{
-        second_card_clicked = $(this);
-        flipCard(this);
-        var firstCard = first_card_clicked.siblings('.card-back').css('background-image');
-        var secondCard = second_card_clicked.siblings('.card-back').css('background-image');
-        if (firstCard === secondCard){
-            //Found a match
-            var matchNumber = $('.matches .value');
-            match_counter++;
-            matchNumber.text(match_counter + ' ');
-            attempts++;
-            var attemptsValue=$('.attempts .value');
-            attemptsValue.text(attempts + ' ');
-            accuracy = match_counter/attempts;
-            var accuracyValue= $('.accuracy .value');
-            accuracyValue.text(Math.floor(accuracy * 100)+'%');
-            var cards = $('.card-front, .card-back');
-            cards.off('click');
-            setTimeout(function(){
-                pairMatchAnimation(first_card_clicked, second_card_clicked);
-                cards.on('click', clickCard);
-                first_card_clicked = null;
-                second_card_clicked = null;
-            },1200);
-            if (match_counter === matches){
-                //All matches found
-                winningDisplay();
-            }
-        } else {
-            var cards = $('.card-front, .card-back');
-            cards.off('click');
-            flag = true;
-            second_card_clicked.siblings('.card-back').addClass('shake')
-            first_card_clicked.siblings('.card-back').addClass('shake')
-            setTimeout(function(){
-                nonPairMatchAnimation();
-                cards.on('click', clickCard);
-                second_card_clicked.siblings('.card-back').removeClass('shake')
-                first_card_clicked.siblings('.card-back').removeClass('shake')
-                first_card_clicked = null;
-                second_card_clicked = null;
-            },700);
-            attempts++;
-            var attemptsValue=$('.attempts .value');
-            attemptsValue.text(attempts + ' ');
-
-            if(match_counter >= 0 && match_counter < 9){
-                accuracy = match_counter/attempts;
-                var accuracyValue= $('.accuracy .value');
-                accuracyValue.text(Math.floor(accuracy * 100)+'%');
-            } else{
-                winningDisplay();
-            }
-        }
-    }
-
-
-
-
-    // $(this).find(".back").hide();
-    $(this).addClass("hidden");
-    if (first_card_clicked === null){
-        first_card_clicked = $(this);
+        first_card_clicked.hide();      
     } else {
         second_card_clicked = $(this);
-        attempts++;
-        first_card_clicked = first_card_clicked.parent().find(".front").css("background-image");
-        second_card_clicked = second_card_clicked.parent().find(".front").css("background-image");
-        if (first_card_clicked === second_card_clicked) {
+        second_card_clicked.hide();
+        var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+
+        if (first_card === second_card) {    /* cards match */  
             match_counter++;
-            attempts++;
             matches++;
             display_stats();
-            setTimeout(function () {
-                first_card_clicked.removeClass("hidden");
-                second_card_clicked.removeClass("hidden");
-                first_card_clicked = null;
-                second_card_clicked = null;
-            }, 2000);
+            first_card_clicked = null;
+            second_card_clicked = null;    
             $(".title").text("Great job Morty!");
+
             if (match_counter === total_possible_matches) {
-                $(this).find('.back').addClass('hidden');
-                $(".title").text("Great job Morty!");
+                $(".title").text("Morty, you found them all!");
             } else {
-                setTimeout(function () {
-                first_card_clicked.removeClass("hidden");
-                second_card_clicked.removeClass("hidden");
                 first_card_clicked = null;
                 second_card_clicked = null;
-                }, 2000);
             }
-        } else {
+
+        } else {    /* cards mismatch */
+            first_card_clicked.show(3000);
+            second_card_clicked.show(3000);
             first_card_clicked = null;
             second_card_clicked = null;
-            first_card_clicked.addClass("back");
-            second_card_clicked.addClass("back");
             attempts++;
             display_stats();
         }
@@ -165,7 +155,7 @@ function reset_game() {
     games_played++;
     reset_stats();
     display_stats();
-    $(".back").removeClass("hidden");
+    $(".back").show();
     $(".title").text("Morty Smith is a moron!");
     $(".card").remove();
     shuffle_array(images);
