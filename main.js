@@ -128,6 +128,7 @@ function clickCard(){
         if (first_card === second_card) {    /* cards match */  
             match_counter++;
             matches++;
+            attempts++;
             display_stats();
             first_card_clicked = null;
             second_card_clicked = null;    
@@ -135,12 +136,17 @@ function clickCard(){
 
             if (match_counter === total_possible_matches) {
                 $(".title").text("Morty, you found them all!");
+                $(".card").remove();
+                var newGame = $("<div>").addClass("newGame").text("Play Again?");
+                var newGameButton = $("<div>").addClass("newGameButton").text("YES").click(startNewGame);
+                $(".game-area").append(newGame, newGameButton);
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
             }
 
         } else {    /* cards mismatch */
+            $(".title").text("Morty Smith is a moron!");
             first_card_clicked.show(3000);
             second_card_clicked.show(3000);
             first_card_clicked = null;
@@ -162,16 +168,27 @@ function reset_game() {
     card_creation(newDeck);
 }
 
-function display_stats(){
+function display_stats() {
     $(".games-played .value").text(games_played);
     $(".attempts .value").text(attempts);
-    accuracy = (matches / attempts) * 100;
-    $(".accuracy .value").text(accuracy + " % ");
+    console.log("matches:", matches);
+    console.log("attempts:", attempts);
+    accuracy = ((matches / attempts) * 100).toFixed(1);
+    accuracy = (isNaN(accuracy)) ? 0 : accuracy;
+    $(".accuracy .value").text(accuracy + " %");
 }
 
-function reset_stats(){
+function reset_stats() {
     accuracy = 0;
     matches = 0;
+    match_counter = 0;
     attempts = 0;
     display_stats();
+}
+
+function startNewGame() {
+    console.log("startNewGame");
+    $(".newGame").remove();
+    $(".newGameButton").remove();
+    reset_game();
 }
