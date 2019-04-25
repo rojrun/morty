@@ -16,56 +16,50 @@ body {
 
 header {
     width: 100%;
-    height: 34%;
+    height: 36%;
     background-color: black;
 }
 
 .title {
     width: 100%;
-    /* height: 35%; */
-    font-size: 9vh;
+    font-size: 11vh;
     text-align: center;
-    /* margin-top: 1%; */
     margin-bottom: 1%;
-}
-
-section {
-    width: 100%;
-    height: 66%;
-    background-color: black;
 }
 
 .statsContainer {
     width: 100%;
     height: 45%;
     background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-between;
+}
+
+.statsContainer > div {
+    flex: 1 0 auto;
+    margin: 0 1%;
+    width: 2%;
 }
 
 .logo {
-    width: 18%;
-    height: 100%;
-    display: inline-block;
     background-image: url(./Rick_and_Morty/title.jpg);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    margin-right: 3%;
 }
 
 .games-played, .attempts, .accuracy, .reset {
     border: 3px solid white;
-    display: inline-block;
     text-align: center;
-    height: 79%;
-    width: 13%;
-    font-size: 3vh;
-    vertical-align: top;
+    font-size: 4vh;
     padding-top: 1%;
 }
 
 .game-area {
     width: 100%;
-    height: 100%;
+    height: 64%;
     background-color: black;
     display: flex;
     justify-content: space-around;
@@ -121,52 +115,270 @@ section {
 }
 
 
-/*-------------- Media Queries ------------*/
+/*------------------------------------ Media Queries --------------------------------------*/
 
-@media only screen 
+/* @media only screen 
 and (min-width : 100px)
 and (max-width : 319px) {
 
-}
+} */
 
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen 
-and (min-width : 320px) 
-and (max-width : 480px) {
+and (min-device-width : 320px) 
+and (max-device-width : 494px)
+and (orientation : portrait) {
+    header {
+        height: 36%;
+    }
 
+    .title {
+        font-size: 8vh;
+    }
+
+    .statsContainer {
+        height: 29%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 2vh;
+    }
+
+    .game-area {
+        height: 64%;
+    } 
+    
+    .card {
+        width: 30%;
+    }
+
+    .newGame {
+        font-size: 10vh;
+    }
+
+    .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 60%;
+    }
+}
+
+/* @media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 494px)
+and (orientation : landscape) {
+    header {
+        height: 53%;
+    }
+
+    .title {
+        font-size: 13vh;
+    }
+
+    .statsContainer {
+        height: 35%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 4vh;
+    }
+
+    .game-area {
+        height: 47%;
+    }
+    
+    .card {
+        width: 15%;
+    }
+
+    .newGame {
+        font-size: 10vh;
+    }
+
+    .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 36%;
+    }
+} */
+
+@media only screen
+and (min-device-width : 360px)
+and (max-device-width : 640px)
+and (orientation : portrait) {
+    header {
+        height: 36%;
+    }
+
+    .title {
+        font-size: 8vh;
+    }
+
+    .statsContainer {
+        height: 29%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 2vh;
+    }
+
+    .game-area {
+        height: 64%;
+    } 
+    
+    .card {
+        width: 30%;
+    }
+
+    .newGame {
+        font-size: 10vh;
+    }
+
+    .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 60%;
+    }
 }
 
 @media only screen
 and (min-device-width : 360px)
-and (max-device-height : 640px)
-and (orientation : portrait) {
-    .title {
-        font-size: 6vh;
+and (max-device-width : 640px)
+and (orientation : landscape) {
+    header {
+        height: 45%;
     }
 
-    .logo {
-        height: 69%;
-        margin-right: 0;
-    }    
+    .title {
+        font-size: 14vh;
+    }
+
+    .statsContainer {
+        height: 40%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
 
     .games-played, .attempts, .accuracy, .reset {
-        height: 63%;
-        width: 15%;
-        font-size: 2vh;
+        font-size: 4vh;
+    }
+
+    .game-area {
+        height: 55%;
     }
     
     .card {
-        width: 25%;
+        width: 15%;
     }
 
     .newGame {
-        font-size: 11vh;
+        font-size: 10vh;
     }
 
     .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 36%;
+    }
+} 
+
+@media only screen
+and (min-device-width : 411px)
+and (max-device-width : 731px)
+and (orientation : portrait) {
+    header {
+        height: 36%;
+    }
+
+    .title {
         font-size: 8vh;
-        height: 22%;
-        width: 47%;
+    }
+
+    .statsContainer {
+        height: 29%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 2vh;
+    }
+
+    .game-area {
+        height: 64%;
+    } 
+    
+    .card {
+        width: 30%;
+    }
+
+    .newGame {
+        font-size: 10vh;
+    }
+
+    .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 60%;
+    }
+}
+
+@media only screen
+and (min-device-width : 411px)
+and (max-device-width : 731px)
+and (orientation : landscape) {
+    header {
+        height: 45%;
+    }
+
+    .title {
+        font-size: 14vh;
+    }
+
+    .statsContainer {
+        height: 40%;
+    }
+
+    .statsContainer > div {
+        width: 5%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 4vh;
+    }
+
+    .game-area {
+        height: 55%;
+    }
+    
+    .card {
+        width: 15%;
+    }
+
+    .newGame {
+        font-size: 10vh;
+    }
+
+    .newGameButton {
+        font-size: 7vh;
+        height: 19%;
+        width: 36%;
     }
 }
 
@@ -255,4 +467,4 @@ and (max-width: 1280px) {
 /* @media only screen
 and (min-width: 1281px) {
 
-} */    
+} */ 
