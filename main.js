@@ -1,14 +1,13 @@
-$(document).ready(start_memory_game);
+$(document).ready(start_memory_match_game);
 
 var first_card_clicked = null;
 var second_card_clicked = null;
-var total_possible_matches = 2;
+var total_possible_matches = 9;
 var match_counter = 0;
 var matches = 0;
 var attempts = 0;
 var accuracy = 0;
 var games_played = 0;
-
 
 var images = [
     "./Rick_and_Morty/birdperson_rick.jpg",
@@ -17,103 +16,117 @@ var images = [
     "./Rick_and_Morty/Evil_Morty.jpg",
     "./Rick_and_Morty/first_episode.jpg",
     "./Rick_and_Morty/Pickle_Rick.jpg",
-    "./Rick_and_Morty/Rick_in_prison.jpg",
-    "./Rick_and_Morty/season-3.jpg",
+    "./Rick_and_Morty/wedding_squanchers.jpg",
+    "./Rick_and_Morty/rickshank_redemption.jpg",
     "./Rick_and_Morty/Vindicators.jpg",
 ];
 
+var newDeck = shuffle_array(images);
 
-function start_memory_game(){
-    card_creation();
-    card_selection();
-    $(".reset").click(function(){
-       games_played++;
-       reset_stats();
-       display_stats();
-       $(".back").removeClass("hidden");
-       $(".title").text("Morty Smith is a moron!");
-    });
+function start_memory_match_game(){
+    shuffle_array(images);
+    card_creation(newDeck);
+    $(".reset").click(reset_game);
 }
 
-function card_creation() {
-   var doubled_images = images.concat( images );
-   for  (var cardRowIndex = 1; cardRowIndex <=3; cardRowIndex++) {
-       var cardRow = $("<div>").addClass("cardRow");
-       for (var cardIndex = 1; cardIndex <= 6; cardIndex++) {
-           var card_image = doubled_images.pop();
-           var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + card_image+ ")");
-           var playingCardBack = $("<div>").addClass("back");
-           var divPlayingCard = $("<div>").addClass("card");
-           $(divPlayingCard).append(playingCardFront, playingCardBack);
-           $(cardRow).append(divPlayingCard);
-       }
-       $(".game-area").append(cardRow);
-   }
+function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck */
+    var doubled_images = imagesArray.concat( imagesArray );
+
+    for (var i = doubled_images.length; i; i -= 1) {
+        var randomize_images = Math.floor(Math.random() * i);
+        var x = doubled_images[i - 1];
+        doubled_images[i - 1] = doubled_images[randomize_images];
+        doubled_images[randomize_images] = x;
+    }
+
+    return doubled_images;
 }
 
-function card_selection() {
-    $(".back").click(card_clicked);
+function card_creation(shuffledDeck) {    /* creates deck dynamically */
+    for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
+        var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
+        var playingCardBack = $("<div>").addClass("back").click(clickCard);
+        var playingCardContainer = $("<div>").addClass("card");
+        $(playingCardContainer).append(playingCardFront, playingCardBack);
+        $(".game-area").append(playingCardContainer);
+    }
 }
 
-function card_clicked(){
-    $(this).addClass("hidden");
-    if (first_card_clicked === null){
+function clickCard(){
+    if (first_card_clicked === null) {
         first_card_clicked = $(this);
+        first_card_clicked.hide();      
     } else {
         second_card_clicked = $(this);
-        attempts++;
-        first_card_clicked = first_card_clicked.parent().find(".front").css("background-image");
-        second_card_clicked = second_card_clicked.parent().find(".front").css("background-image");
-        if (first_card_clicked === second_card_clicked) {
+        second_card_clicked.hide();
+        var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+
+        if (first_card === second_card) {    /* cards match */  
             match_counter++;
-            attempts++;
             matches++;
+            attempts++;
             display_stats();
-            setTimeout(function () {
-                first_card_clicked.removeClass("hidden");
-                second_card_clicked.removeClass("hidden");
-                first_card_clicked = null;
-                second_card_clicked = null;
-            }, 2000);
+            first_card_clicked = null;
+            second_card_clicked = null;    
             $(".title").text("Great job Morty!");
-            if (match_counter === total_possible_matches) {
-                $(this).find('.back').addClass('hidden');
-                $(".title").text("Great job Morty!");
+
+            if (match_counter === total_possible_matches) {     /* if all matches found */
+                $(".title").text("Morty, you found them all!");
+                $(".card").remove();
+                var newGame = $("<div>").addClass("newGame").text("Play Again?");
+                var newGameButton = $("<div>").addClass("newGameButton").text("YES").click(startNewGame);
+                var newGameContainer = $("<div>").addClass("newGameContainer");
+                $(newGameContainer).append(newGame, newGameButton);
+                $(".game-area").append(newGameContainer);
             } else {
-                setTimeout(function () {
-                first_card_clicked.removeClass("hidden");
-                second_card_clicked.removeClass("hidden");
                 first_card_clicked = null;
                 second_card_clicked = null;
-                }, 2000);
             }
-        } else {
+
+        } else {    /* cards mismatch */
+            $(".title").text("Morty Smith is a moron!");
+            first_card_clicked.show(1000);
+            second_card_clicked.show(1000);
             first_card_clicked = null;
             second_card_clicked = null;
-            first_card_clicked.addClass("back");
-            second_card_clicked.addClass("back");
             attempts++;
             display_stats();
         }
     }
 }
 
-function display_stats(){
-    $(".games-played .value").text(games_played);
-    $(".attempts .value").text(attempts);
-    accuracy = (matches / attempts) * 100;
-    $(".accuracy .value").text(accuracy + " % ");
+function reset_game() {
+    games_played++;
+    reset_stats();
+    display_stats();
+    $(".back").show();
+    $(".title").text("Morty Smith is a moron!");
+    $(".newGameContainer").remove();
+    $(".card").remove();
+    shuffle_array(images);
+    card_creation(newDeck);
 }
 
-function reset_stats(){
+function display_stats() {
+    $(".games-played .value").text(games_played);
+    $(".attempts .value").text(attempts);
+    accuracy = ((matches / attempts) * 100).toFixed(1);
+    accuracy = (isNaN(accuracy)) ? 0 : accuracy;
+    $(".accuracy .value").text(accuracy + " %");
+}
+
+function reset_stats() {
+    first_card_clicked = null;
+    second_card_clicked = null;
     accuracy = 0;
     matches = 0;
+    match_counter = 0;
     attempts = 0;
     display_stats();
 }
 
-
-
-
-
-
+function startNewGame() {
+    $(".newGameContainer").remove();
+    reset_game();
+}
