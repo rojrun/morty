@@ -45,7 +45,7 @@ function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck *
 function card_creation(shuffledDeck) {    /* creates deck dynamically */
     for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
         var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
-        var playingCardBack = $("<div>").addClass("back").click(clickCard);
+        var playingCardBack = $("<div>").addClass("back").on("click", clickCard);
         var playingCardContainer = $("<div>").addClass("card");
         $(playingCardContainer).append(playingCardFront, playingCardBack);
         $(".game-area").append(playingCardContainer);
@@ -59,6 +59,7 @@ function clickCard(){
     } else {
         second_card_clicked = $(this);
         second_card_clicked.hide();
+        $(".back").off("click");
         var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
         var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
 
@@ -82,14 +83,18 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
+                $(".back").on("click", clickCard);
             }
 
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
-            first_card_clicked.show(1000);
-            second_card_clicked.show(1000);
-            first_card_clicked = null;
-            second_card_clicked = null;
+            setTimeout(function() {
+                first_card_clicked.show(1100);
+                second_card_clicked.show(1100);
+                first_card_clicked = null;
+                second_card_clicked = null;
+                $(".back").on("click", clickCard);
+            }, 3000);            
             attempts++;
             display_stats();
         }
