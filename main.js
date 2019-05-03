@@ -108,11 +108,7 @@ function clickCard(){
                 first_card_clicked = null;
                 second_card_clicked = null;
                 $(".back").on("click", clickCard);
-<<<<<<< HEAD
             }, 2300);            
-=======
-            }, 2500);            
->>>>>>> 80ecd0977fe60442cf26272e613b09d9f9753a43
             attempts++;
             display_stats();
         }
