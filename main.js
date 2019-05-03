@@ -27,7 +27,7 @@ var newDeck = shuffle_array(images);
 function start_memory_match_game(){
     shuffle_array(images);
     card_creation(newDeck);
-    $(".reset").click(reset_game);
+    $(".reset").on("click", reset_game);
 }
 
 function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck */
@@ -82,7 +82,7 @@ function clickCard(){
                 $(".title").text("Morty, you found them all!");
                 $(".card").remove();
                 var newGame = $("<div>").addClass("newGame").text("Play Again?");
-                var newGameButton = $("<div>").addClass("newGameButton").text("YES").click(startNewGame);
+                var newGameButton = $("<div>").addClass("newGameButton").text("YES").on("click", startNewGame);
                 var newGameContainer = $("<div>").addClass("newGameContainer");
                 $(newGameContainer).append(newGame, newGameButton);
                 $(".game-area").append(newGameContainer);
@@ -95,12 +95,12 @@ function clickCard(){
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                first_card_clicked.show(1100);
-                second_card_clicked.show(1100);
+                first_card_clicked.show(1000);
+                second_card_clicked.show(1000);
                 first_card_clicked = null;
                 second_card_clicked = null;
                 $(".back").on("click", clickCard);
-            }, 3000);            
+            }, 2300);            
             attempts++;
             display_stats();
         }
