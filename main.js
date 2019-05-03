@@ -58,18 +58,25 @@ function clickCard(){
     //     return;
     // }
 
+    // if ($(this).hasClass("cantClick")) {
+    //     return;
+    // }
+
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        first_card_clicked.hide();      
+        first_card_clicked.hide();
+
     } else {
-        canBeClicked = false;
+        // canBeClicked = false;
         second_card_clicked = $(this);
         second_card_clicked.hide();
+        // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
         var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
         var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
 
         if (first_card === second_card) {    /* cards match */  
+            $(".back").off("click", clickCard);
             match_counter++;
             matches++;
             attempts++;
@@ -86,6 +93,7 @@ function clickCard(){
                 var newGameContainer = $("<div>").addClass("newGameContainer");
                 $(newGameContainer).append(newGame, newGameButton);
                 $(".game-area").append(newGameContainer);
+
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
@@ -95,12 +103,12 @@ function clickCard(){
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                first_card_clicked.show(1100);
-                second_card_clicked.show(1100);
+                first_card_clicked.show(1000);
+                second_card_clicked.show(1000);
                 first_card_clicked = null;
                 second_card_clicked = null;
                 $(".back").on("click", clickCard);
-            }, 3000);            
+            }, 2500);            
             attempts++;
             display_stats();
         }
