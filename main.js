@@ -8,7 +8,6 @@ var matches = 0;
 var attempts = 0;
 var accuracy = 0;
 var games_played = 0;
-// var canBeClicked = true;
 
 var images = [
     "./Rick_and_Morty/birdperson_rick.jpg",
@@ -54,30 +53,18 @@ function card_creation(shuffledDeck) {    /* creates deck dynamically */
 }
 
 function clickCard(){
-    // if (!canBeClicked) {
-    //     return;
-    // }
-
-    // if ($(this).hasClass("cantClick")) {
-    //     return;
-    // }
-
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
         first_card_clicked.hide();
 
     } else {
-        // canBeClicked = false;
         second_card_clicked = $(this);
         second_card_clicked.hide();
-        // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
         var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
         //var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
         // var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
         var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
-        console.log("first_card:", first_card);
-        console.log("second_card:", second_card);
 
         if (first_card === second_card) {    /* cards match */  
             match_counter++;
@@ -110,10 +97,10 @@ function clickCard(){
                 second_card_clicked.show(1000);
                 first_card_clicked = null;
                 second_card_clicked = null;
+                $(".back").on("click", clickCard);
             }, 2300);            
             attempts++;
-            display_stats();
-            $(".back").on("click", clickCard);
+            display_stats();           
         }
     }
 }
