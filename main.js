@@ -27,7 +27,7 @@ var newDeck = shuffle_array(images);
 function start_memory_match_game(){
     shuffle_array(images);
     card_creation(newDeck);
-    $(".reset").click(reset_game);
+    $(".reset").on("click", reset_game);
 }
 
 function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck */
@@ -72,11 +72,14 @@ function clickCard(){
         second_card_clicked.hide();
         // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
-        var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
-        var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var first_card = first_card_clicked.siblings().css("background-image").slice(66, -6);
+        //var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        // var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var second_card = second_card_clicked.siblings().css("background-image").slice(66, -6);
+        console.log("first_card:", first_card);
+        console.log("second_card:", second_card);
 
         if (first_card === second_card) {    /* cards match */  
-            $(".back").off("click", clickCard);
             match_counter++;
             matches++;
             attempts++;
@@ -89,7 +92,7 @@ function clickCard(){
                 $(".title").text("Morty, you found them all!");
                 $(".card").remove();
                 var newGame = $("<div>").addClass("newGame").text("Play Again?");
-                var newGameButton = $("<div>").addClass("newGameButton").text("YES").click(startNewGame);
+                var newGameButton = $("<div>").addClass("newGameButton").text("YES").on("click", startNewGame);
                 var newGameContainer = $("<div>").addClass("newGameContainer");
                 $(newGameContainer).append(newGame, newGameButton);
                 $(".game-area").append(newGameContainer);
@@ -107,10 +110,10 @@ function clickCard(){
                 second_card_clicked.show(1000);
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
-            }, 2500);            
+            }, 2300);            
             attempts++;
             display_stats();
+            $(".back").on("click", clickCard);
         }
     }
 }
