@@ -72,11 +72,14 @@ function clickCard(){
         second_card_clicked.hide();
         // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
-        var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
-        var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var first_card = first_card_clicked.siblings().css("background-image").slice(66, -6);
+        //var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        // var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var second_card = second_card_clicked.siblings().css("background-image").slice(66, -6);
+        console.log("first_card:", first_card);
+        console.log("second_card:", second_card);
 
         if (first_card === second_card) {    /* cards match */  
-            $(".back").off("click", clickCard);
             match_counter++;
             matches++;
             attempts++;
@@ -107,10 +110,10 @@ function clickCard(){
                 second_card_clicked.show(1000);
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
             }, 2300);            
             attempts++;
             display_stats();
+            $(".back").on("click", clickCard);
         }
     }
 }
