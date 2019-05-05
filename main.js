@@ -72,8 +72,9 @@ function clickCard(){
         second_card_clicked.hide();
         // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
-        var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        var first_card = first_card_clicked.parent().find(".front").css("background-image");
         var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
+        console.log("first_card:", first_card);
 
         if (first_card === second_card) {    /* cards match */  
             $(".back").off("click", clickCard);
