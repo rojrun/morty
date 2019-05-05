@@ -72,10 +72,10 @@ function clickCard(){
         second_card_clicked.hide();
         // $(".back").addClass("cantClick");
         $(".back").off("click", clickCard);
-        var first_card = first_card_clicked.siblings().css("background-image").slice(66, -6);
+        var first_card = (first_card_clicked.siblings())[0].style.backgroundImage;
         //var first_card = first_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
         // var second_card = second_card_clicked.parent().find(".front").css("background-image").slice(66, -6);
-        var second_card = second_card_clicked.siblings().css("background-image").slice(66, -6);
+        var second_card = (second_card_clicked.siblings())[0].style.backgroundImage;
         console.log("first_card:", first_card);
         console.log("second_card:", second_card);
 
