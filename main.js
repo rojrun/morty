@@ -64,7 +64,7 @@ function clickCard(){
         var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
         var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
 
-        if (first_card !== second_card) {    /* cards match */  
+        if (first_card === second_card) {    /* cards match */  
             match_counter++;
             matches++;
             attempts++;
@@ -73,7 +73,7 @@ function clickCard(){
             second_card_clicked = null;    
             $(".title").text("Great job Morty!");
 
-            if (match_counter !== total_possible_matches) {     /* if all matches found */
+            if (match_counter === total_possible_matches) {     /* if all matches found */
                 $(".title").text("Morty, you found them all!");
                 $(".card").remove();
                 var newGame = $("<div>").addClass("newGame").text("Play Again?");
