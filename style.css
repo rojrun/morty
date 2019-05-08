@@ -2,6 +2,7 @@ body {
     margin: 0;
     width: 100%;
     height: 100vh;
+    font-size: 0;
 }
 
 @font-face {
@@ -9,14 +10,15 @@ body {
     src: url(./Rick_and_Morty/Rick_Morty_fonts/get_schwifty.ttf);
 }
 
-* {
+body > * {
     font-family: rickFont;
     color: deepskyblue;
+    font-size: 1rem;
 }
 
 header {
     width: 100%;
-    height: 36%;
+    min-height: 37%;
     background-color: black;
 }
 
@@ -58,11 +60,11 @@ header {
 
 .game-area {
     width: 100%;
-    height: 64%;
+    min-height: 63%;
     background-color: black;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap; 
+    justify-content: center;
+    flex-wrap: wrap;  
 }
 
 .card {
@@ -70,6 +72,7 @@ header {
     position: relative;
     flex: 1 0 auto;
     margin: 7px;
+    flex-grow: 0;
 }
 
 .front, .back {
@@ -90,6 +93,10 @@ header {
     background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.back:hover, .logo:hover, .reset:hover, .newGameButton:hover {
+    cursor: pointer;
 }
 
 .newGameContainer {
@@ -114,10 +121,6 @@ header {
 and (max-device-width: 767px)
 and (max-device-height: 823px)
 and (orientation: portrait) {
-    header {
-        height: 36%;
-    }
-
     .title {
         font-size: 7rem;
     }
@@ -129,10 +132,6 @@ and (orientation: portrait) {
     .games-played, .attempts, .accuracy, .reset {
         font-size: 2.4rem;
     }
-
-    .game-area {
-        height: 64%;
-    } 
     
     .card {
         width: 30%;
@@ -148,7 +147,7 @@ and (max-device-width: 823px)
 and (max-device-height: 414px)
 and (orientation: landscape) {
     header {
-        height: 46%;
+        min-height: 46%;
     }
 
     .title {
@@ -164,7 +163,7 @@ and (orientation: landscape) {
     }
 
     .game-area {
-        height: 54%;
+        min-height: 54%;
     }
     
     .card {
@@ -181,8 +180,34 @@ and (orientation: landscape) {
 and (min-device-width: 768px)
 and (min-device-height: 1024px)
 and (orientation: portrait) {    
+    .title {
+        font-size: 5rem;
+    }
+
+    .statsContainer > div {
+        width: 22%;
+    }
+
+    .games-played, .attempts, .accuracy, .reset {
+        font-size: 2.4rem;
+    }
+    
+    .card {
+        width: 30%;
+    }
+
+    .newGame, .newGameButton {
+        font-size: 5rem;
+    }
+}
+
+/* #### Tablets Portrait #### */
+@media only screen 
+    and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait),
+only screen 
+    and (device-width: 1024px) and (device-height: 1366px) and (orientation: portrait) {
     header {
-        height: 36%;
+        min-height: 32%;
     }
 
     .title {
@@ -198,7 +223,7 @@ and (orientation: portrait) {
     }
 
     .game-area {
-        height: 64%;
+        min-height: 68%;
     } 
     
     .card {
@@ -216,11 +241,11 @@ and (orientation: portrait) {
 only screen 
     and (device-width: 1366px) and (device-height: 1024px) and (orientation: landscape) {
     header {
-        height: 60%;
+        min-height: 50%;
     }
 
     .title {
-        font-size: 5rem;
+        font-size: 4rem;
     }
 
     .statsContainer > div {
@@ -228,11 +253,11 @@ only screen
     }
 
     .games-played, .attempts, .accuracy, .reset {
-        font-size: 2.4rem;
+        font-size: 2rem;
     }
 
     .game-area {
-        height: 40%;
+        min-height: 50%;
     }
     
     .card {
