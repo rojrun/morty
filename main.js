@@ -138,6 +138,8 @@ function reset_stats() {
 }
 
 function startNewGame() {
+    games_played++;
     $(".newGameContainer").remove();
-    reset_game();
+    reset_stats();
+    shuffle_array(images);
 }
