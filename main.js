@@ -45,9 +45,12 @@ function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck *
 function card_creation(shuffledDeck) {    /* creates deck dynamically */
     for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
         var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
-        var playingCardBack = $("<div>").addClass("back").on("click", clickCard);
+        var playingCardBack = $("<div>").addClass("back");
+        var playingCardInner = $("<div>").addClass("card_inner").on("click", clickCard);
         var playingCardContainer = $("<div>").addClass("card");
-        $(playingCardContainer).append(playingCardFront, playingCardBack);
+
+        $(playingCardInner).append(playingCardFront, playingCardBack);
+        $(playingCardContainer).append(playingCardInner);
         $(".game-area").append(playingCardContainer);
     }
 }
@@ -56,12 +59,13 @@ function clickCard(){
     touched++;
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        first_card_clicked.hide();
+        // first_card_clicked.hide();
+
 
     } else {
         second_card_clicked = $(this);
-        second_card_clicked.hide();
-        $(".back").off("click", clickCard);
+        // second_card_clicked.hide();
+        $(".card_inner").off("click", clickCard);
         var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
         var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
 
@@ -88,17 +92,17 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
+                $(".card_inner").on("click", clickCard);
             }
 
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                first_card_clicked.show();
-                second_card_clicked.show();
+                // first_card_clicked.show();
+                // second_card_clicked.show();
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
+                $(".card_inner").on("click", clickCard);
             }, 3500);      
             attempts++;
             display_stats();           
