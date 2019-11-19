@@ -59,23 +59,32 @@ function clickCard(){
     touched++;
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        // first_card_clicked.hide();
-
+        first_card_clicked.toggleClass("card_flipped");
+        // first_card_clicked.off("click", clickCard);
+        console.log("card", $(this));
 
     } else {
         second_card_clicked = $(this);
-        // second_card_clicked.hide();
+        second_card_clicked.toggleClass("card_flipped");
         $(".card_inner").off("click", clickCard);
-        var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
-        var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
+        // var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
+        // var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
+        var first_card = ((first_card_clicked.children(".front")[0]).style.backgroundImage).slice(22, -6);
+        var second_card = ((second_card_clicked.children(".front")[0]).style.backgroundImage).slice(22, -6);
+        console.log("first card", first_card);
+        console.log("second card", second_card);
 
         if (first_card === second_card) {    /* cards match */  
             matches++;
             attempts++;
             display_stats();
-            first_card_clicked = null;
-            second_card_clicked = null;    
+            // var first_matched_card = first_card_clicked;
+            // var second_matched_card = second_card_clicked;
+            first_card_clicked.off("click", clickCard);
+            second_matched_card.off("click", clickCard);  
             $(".title").text("Great job Morty!");
+            // first_card_clicked = null;
+            // second_card_clicked = null;  
 
             if (matches === total_possible_matches) {     /* if all matches found */
                 $(".title").text("Morty, you found them all!");
@@ -98,8 +107,8 @@ function clickCard(){
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                // first_card_clicked.show();
-                // second_card_clicked.show();
+                first_card_clicked.toggleClass("card_flipped");
+                second_card_clicked.toggleClass("card_flipped");
                 first_card_clicked = null;
                 second_card_clicked = null;
                 $(".card_inner").on("click", clickCard);
