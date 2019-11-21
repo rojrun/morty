@@ -46,11 +46,11 @@ function card_creation(shuffledDeck) {    /* creates deck dynamically */
     for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
         var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
         var playingCardBack = $("<div>").addClass("back");
-        var playingCardInner = $("<div>").addClass("card_inner").on("click", clickCard);
-        var playingCardContainer = $("<div>").addClass("card");
+        // var playingCardInner = $("<div>").addClass("card_inner").on("click", clickCard);
+        var playingCardContainer = $("<div>").addClass("card").on("click", clickCard);
 
-        $(playingCardInner).append(playingCardFront, playingCardBack);
-        $(playingCardContainer).append(playingCardInner);
+        $(playingCardContainer).append(playingCardFront, playingCardBack);
+        // $(playingCardContainer).append(playingCardInner);
         $(".game-area").append(playingCardContainer);
     }
 }
@@ -59,14 +59,14 @@ function clickCard(){
     touched++;
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        first_card_clicked.toggleClass("card_flipped");
+        first_card_clicked.addClass("card_flipped");
         // first_card_clicked.off("click", clickCard);
         console.log("card", $(this));
 
     } else {
         second_card_clicked = $(this);
-        second_card_clicked.toggleClass("card_flipped");
-        $(".card_inner").off("click", clickCard);
+        second_card_clicked.addClass("card_flipped");
+        $(".card").off("click", clickCard);
         // var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
         // var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
         var first_card = ((first_card_clicked.children(".front")[0]).style.backgroundImage).slice(22, -6);
@@ -80,8 +80,12 @@ function clickCard(){
             display_stats();
             // var first_matched_card = first_card_clicked;
             // var second_matched_card = second_card_clicked;
-            first_card_clicked.off("click", clickCard);
-            second_matched_card.off("click", clickCard);  
+            // first_card_clicked.off("click", clickCard);
+            // second_card_clicked.off("click", clickCard);
+            first_card_clicked.addClass("matched");  
+            console.log("first card clicked:", first_card_clicked);
+            second_card_clicked.addClass("matched");
+            $(".card").off("click", clickCard);
             $(".title").text("Great job Morty!");
             // first_card_clicked = null;
             // second_card_clicked = null;  
@@ -101,17 +105,17 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".card_inner").on("click", clickCard);
+                $(".card").on("click", clickCard);
             }
 
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                first_card_clicked.toggleClass("card_flipped");
-                second_card_clicked.toggleClass("card_flipped");
+                first_card_clicked.removeClass("card_flipped");
+                second_card_clicked.removeClass("card_flipped");
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".card_inner").on("click", clickCard);
+                $(".card").on("click", clickCard);
             }, 3500);      
             attempts++;
             display_stats();           
