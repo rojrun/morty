@@ -26,6 +26,7 @@ function start_memory_match_game(){
     $(".logo").click(function() {
         location.reload();
     });
+    $(".card").on("click", clickCard);
     $(".reset").on("click", reset_game);   
 }
 
@@ -45,7 +46,7 @@ function shuffle_array(imagesArray) {    /* duplicates array and shuffles deck *
 function card_creation(shuffledDeck) {    /* creates deck dynamically */
     for (var cardIndex = 0; cardIndex < shuffledDeck.length; cardIndex++) {
         var playingCardFront = $("<div>").addClass("front").css("background-image", "url(" + shuffledDeck[cardIndex] + ")");
-        var playingCardBack = $("<div>").addClass("back").on("click", clickCard);
+        var playingCardBack = $("<div>").addClass("back");
         var playingCardContainer = $("<div>").addClass("card");
         $(playingCardContainer).append(playingCardFront, playingCardBack);
         $(".game-area").append(playingCardContainer);
@@ -56,21 +57,21 @@ function clickCard(){
     touched++;
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
-        first_card_clicked.hide();
+        first_card_clicked.addClass("card_flipped");
 
     } else {
         second_card_clicked = $(this);
-        second_card_clicked.hide();
-        $(".back").off("click", clickCard);
-        var first_card = ((first_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
-        var second_card = ((second_card_clicked.siblings())[0].style.backgroundImage).slice(22, -6);
+        second_card_clicked.addClass("card_flipped");
+        $(".card").off("click", clickCard);
+        var first_card = ((first_card_clicked.children(".front")[0]).style.backgroundImage).slice(22, -6);
+        var second_card = ((second_card_clicked.children(".front")[0]).style.backgroundImage).slice(22, -6);
 
         if (first_card === second_card) {    /* cards match */  
             matches++;
             attempts++;
             display_stats();
-            first_card_clicked = null;
-            second_card_clicked = null;    
+            first_card_clicked.addClass("matched");
+            second_card_clicked.addClass("matched");  
             $(".title").text("Great job Morty!");
 
             if (matches === total_possible_matches) {     /* if all matches found */
@@ -88,17 +89,17 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
+                $(".card").on("click", clickCard);
             }
 
         } else {    /* cards mismatch */
             $(".title").text("Morty Smith is a moron!");
             setTimeout(function() {
-                first_card_clicked.show();
-                second_card_clicked.show();
+                first_card_clicked.removeClass("card_flipped");
+                second_card_clicked.removeClass("card_flipped");
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".back").on("click", clickCard);
+                $(".card").on("click", clickCard);
             }, 3500);      
             attempts++;
             display_stats();           
