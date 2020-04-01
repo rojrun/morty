@@ -55,6 +55,7 @@ function card_creation(shuffledDeck) {    /* creates deck dynamically */
 
 function clickCard(){
     touched++;
+    console.log("touched", touched);
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
         first_card_clicked.addClass("card_flipped");
@@ -73,6 +74,9 @@ function clickCard(){
             first_card_clicked.addClass("matched");
             second_card_clicked.addClass("matched");  
             $(".title").text("Great job Morty!");
+            // $(".card").not(".matched").on("click", clickCard);
+            console.log("cards matched, touched", touched);
+
 
             if (matches === total_possible_matches) {     /* if all matches found */
                 $(".title").text("Morty, you found them all!");
@@ -89,7 +93,8 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".card").on("click", clickCard);
+                // $(".card").on("click", clickCard);
+                $(".card").not(".matched").on("click", clickCard);
             }
 
         } else {    /* cards mismatch */
@@ -100,6 +105,7 @@ function clickCard(){
                 first_card_clicked = null;
                 second_card_clicked = null;
                 $(".card").on("click", clickCard);
+                // $(".card").not(".matched").on("click", clickCard);
             }, 3500);      
             attempts++;
             display_stats();           
@@ -111,12 +117,16 @@ function reset_game() {
     if (touched > 0) {
         games_played++;
         reset_stats();
-        $(".back").hide(7000, function() {
+        
+        if ( !$(".card").hasClass(".matched") ) {
+            $(".card").not(".matched").addClass("card_flipped");
+        }
+
+        setTimeout(function() {
             $(".title").text("Morty Smith is a moron!");
-            $(".newGameContainer").remove();
-            $(".card").remove();
-            shuffle_array(images);
-        });               
+            $(".newGameContainer, .card").remove();
+            start_memory_match_game();
+        }, 4000);              
     }    
 }
 
@@ -142,5 +152,5 @@ function startNewGame() {
     games_played++;
     $(".newGameContainer").remove();
     reset_stats();
-    shuffle_array(images);
+    start_memory_match_game();
 }
