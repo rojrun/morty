@@ -55,7 +55,7 @@ function card_creation(shuffledDeck) {    /* creates deck dynamically */
 
 function clickCard(){
     touched++;
-    console.log("touched", touched);
+    
     if (first_card_clicked === null) {
         first_card_clicked = $(this);
         first_card_clicked.addClass("card_flipped");
@@ -74,10 +74,7 @@ function clickCard(){
             first_card_clicked.addClass("matched");
             second_card_clicked.addClass("matched");  
             $(".title").text("Great job Morty!");
-            // $(".card").not(".matched").on("click", clickCard);
-            console.log("cards matched, touched", touched);
-
-
+            
             if (matches === total_possible_matches) {     /* if all matches found */
                 $(".title").text("Morty, you found them all!");
                 
@@ -93,7 +90,6 @@ function clickCard(){
             } else {
                 first_card_clicked = null;
                 second_card_clicked = null;
-                // $(".card").on("click", clickCard);
                 $(".card").not(".matched").on("click", clickCard);
             }
 
@@ -104,8 +100,7 @@ function clickCard(){
                 second_card_clicked.removeClass("card_flipped");
                 first_card_clicked = null;
                 second_card_clicked = null;
-                $(".card").on("click", clickCard);
-                // $(".card").not(".matched").on("click", clickCard);
+                $(".card").not(".matched").on("click", clickCard);
             }, 3500);      
             attempts++;
             display_stats();           
